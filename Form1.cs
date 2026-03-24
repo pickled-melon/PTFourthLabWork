@@ -6,14 +6,38 @@ namespace PTFourthLabWork
         public Form1()
         {
             InitializeComponent();
+
+            ShowInfo();
         }
 
         private void btnRefill_Click(object sender, EventArgs e)
         {
             this.booksList.Clear();
+
+            var rnd = new Random();
             for (int i = 0; i < 10; i++)
             {
-                this.booksList.Add(new Biography());
+                switch (rnd.Next() % 3)
+                {
+                    case 0:
+                        this.booksList.Add(new Dictionary
+                        {
+                            pageCount = rnd.Next() % 1001
+                        });
+                        break;
+                    case 1:
+                        this.booksList.Add(new RecipeBook
+                        {
+                            pageCount = rnd.Next() % 1001
+                        });
+                        break;
+                    case 2:
+                        this.booksList.Add(new Biography
+                        {
+                            pageCount = rnd.Next() % 1001
+                        });
+                        break;
+                }
             }
 
             ShowInfo();
@@ -44,6 +68,22 @@ namespace PTFourthLabWork
             txtInfo.Text = "Словари\tРецепты \tБиографии";
             txtInfo.Text += "\n";
             txtInfo.Text += String.Format("{0}\t\t{1}\t\t{2}", dictionariesCount, recipeBooksCount, biographiesCount);
+        }
+
+        private void btnGet_Click(object sender, EventArgs e)
+        {
+            if (this.booksList.Count == 0)
+            {
+                txtOut.Text = "Пусто! Выросла капуста!";
+                return;
+            }
+
+            var book = this.booksList[0];
+            this.booksList.RemoveAt(0);
+
+            txtOut.Text = book.GetInfo();
+
+            ShowInfo();
         }
     }
 }
