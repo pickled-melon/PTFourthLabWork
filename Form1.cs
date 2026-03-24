@@ -7,6 +7,8 @@ namespace PTFourthLabWork
         {
             InitializeComponent();
 
+            listViewQueue.Columns.Add("Книги в очереди", 350, HorizontalAlignment.Left);
+
             ShowInfo();
         }
 
@@ -40,31 +42,38 @@ namespace PTFourthLabWork
             int recipeBooksCount = 0;
             int biographiesCount = 0;
 
-            txtQueue.Text = "Очередь:\n";
+            listViewQueue.Items.Clear();
+
+            int imageIndex = 0;
 
             foreach (var book in this.booksList)
             {
+
                 if (book is Dictionary)
                 {
+                    imageIndex = 1;
                     dictionariesCount += 1;
                 }
                 else if (book is RecipeBook)
                 {
+                    imageIndex = 2;
                     recipeBooksCount += 1;
                 }
                 else if (book is Biography)
                 {
+                    imageIndex = 0;
                     biographiesCount += 1;
                 }
                 
-                txtQueue.Text += book.GetInfo() + "\n";
+                ListViewItem item = new ListViewItem(book.GetInfo());
+                item.ImageIndex = imageIndex;   
+
+                listViewQueue.Items.Add(item);
             }
 
             txtInfo.Text = "Словари\tРецепты \tБиографии";
             txtInfo.Text += "\n";
             txtInfo.Text += String.Format("{0}\t\t{1}\t\t{2}", dictionariesCount, recipeBooksCount, biographiesCount);
-
-            
         }
 
         private void btnGet_Click(object sender, EventArgs e)
