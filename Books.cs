@@ -7,23 +7,24 @@ namespace PTFourthLabWork
 {
     public class Book
     {
-        public int pageCount = 1000;
+        public static Random rnd = new Random();
+        public int pageCount = rnd.Next() % 1001;
+
         public virtual String GetInfo()
         {
-            var str = String.Format("Количество страниц: {0}\N", this.pageCount);
+            var str = String.Format("Количество страниц: {0}\n", this.pageCount);
             return str;
         }
     }
     public class Dictionary : Book
     {
-        public int pageCount = 250;
-        public int wordCount = 1000;
-        public string language_pair = "Английский-Русский";
+        public int pageCount;
+        public int wordCount;
+        public string language_pair;
  
-
         public override string GetInfo()
         {
-            var str = String.Format("Словарь {0}, состоящий из {1} слов.", this.language_pair, this.wordCount);
+            var str = String.Format("Словарь {0}, состоящий из {1} слов.\n", this.language_pair, this.wordCount);
             str += base.GetInfo();
 
             return str;
@@ -31,7 +32,6 @@ namespace PTFourthLabWork
 
         public static Dictionary Generate()
         {
-            var rnd = new Random();
             string[] languagePairs = { "Английский-Русский", "Немецкий-Русский", "Китайский-Русский" };
 
             return new Dictionary
@@ -45,13 +45,13 @@ namespace PTFourthLabWork
 
     public class RecipeBook : Book
     {
-        public int pageCount = 250;
-        public int recipeCount = 200;
-        public string cuisine = "Китайская";
+        public int pageCount;
+        public int recipeCount;
+        public string cuisine;
 
         public override string GetInfo()
         {
-            var str = String.Format("Книга про {0} кухню, состоящая из {1} рецептов.", this.cuisine, this.recipeCount);
+            var str = String.Format("Книга про {0} кухню, состоящая из {1} рецептов.\n", this.cuisine, this.recipeCount);
             str += base.GetInfo();
 
             return str;
@@ -59,7 +59,6 @@ namespace PTFourthLabWork
 
         public static RecipeBook Generate()
         {
-            var rnd = new Random();
             string[] cuisines = { "Русская", "Немецкая", "Китайская" };
 
             return new RecipeBook
@@ -74,13 +73,13 @@ namespace PTFourthLabWork
     public enum BiographiesType {autobiography, memoir, groupBiography, biography};
     public class Biography : Book
     {
-        public int pageCount = 400;
-        public string person = "Стив Джобс";
-        public BiographiesType biographyType = BiographiesType.biography;
+        public int pageCount;
+        public string person;
+        public BiographiesType biographyType;
 
         public override string GetInfo()
         {
-            var str = String.Format("Биография {0} типа {1}.", this.person, this.biographyType);
+            var str = String.Format("Биография {0} типа {1}.\n", this.person, this.biographyType);
             str += base.GetInfo();
 
             return str;
@@ -88,7 +87,6 @@ namespace PTFourthLabWork
 
         public static Biography Generate()
         {
-            var rnd = new Random();
             string[] persons = { "Стив Джобс", "Стив Возняк", "Эдвард Сноуден", "Линус Торвальдс" };
             BiographiesType[] values = (BiographiesType[])Enum.GetValues(typeof(BiographiesType));
 

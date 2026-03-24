@@ -20,22 +20,13 @@ namespace PTFourthLabWork
                 switch (rnd.Next() % 3)
                 {
                     case 0:
-                        this.booksList.Add(new Dictionary
-                        {
-                            pageCount = rnd.Next() % 1001
-                        });
+                        this.booksList.Add(Dictionary.Generate());
                         break;
                     case 1:
-                        this.booksList.Add(new RecipeBook
-                        {
-                            pageCount = rnd.Next() % 1001
-                        });
+                        this.booksList.Add(RecipeBook.Generate());
                         break;
                     case 2:
-                        this.booksList.Add(new Biography
-                        {
-                            pageCount = rnd.Next() % 1001
-                        });
+                        this.booksList.Add(Biography.Generate());
                         break;
                 }
             }
@@ -48,6 +39,8 @@ namespace PTFourthLabWork
             int dictionariesCount = 0;
             int recipeBooksCount = 0;
             int biographiesCount = 0;
+
+            txtQueue.Text = "Очередь:\n";
 
             foreach (var book in this.booksList)
             {
@@ -63,11 +56,15 @@ namespace PTFourthLabWork
                 {
                     biographiesCount += 1;
                 }
+                
+                txtQueue.Text += book.GetInfo() + "\n";
             }
 
             txtInfo.Text = "Словари\tРецепты \tБиографии";
             txtInfo.Text += "\n";
             txtInfo.Text += String.Format("{0}\t\t{1}\t\t{2}", dictionariesCount, recipeBooksCount, biographiesCount);
+
+            
         }
 
         private void btnGet_Click(object sender, EventArgs e)
